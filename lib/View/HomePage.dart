@@ -5,6 +5,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Tip Calculator',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: Container(
+        color: Colors.black,
+      ),
+    );
   }
 }
