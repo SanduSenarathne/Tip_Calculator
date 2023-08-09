@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final TextEditingController billAmountController = TextEditingController();
+  final TextEditingController tipPrecentageController = TextEditingController();
+  final TextEditingController noPeopleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +30,44 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
+              controller: billAmountController,
               decoration: InputDecoration(labelText: 'Bill Amount (\$)'),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'^\d+\.?\d{0,2}?$'),
+                ),
+              ],
               keyboardType: TextInputType.numberWithOptions(decimal: true),
             ),
             SizedBox(height: 16.0),
             TextField(
+              controller: tipPrecentageController,
               decoration: InputDecoration(labelText: 'Tip Percentage (%)'),
               keyboardType: TextInputType.number,
+              /*inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],*/
             ),
             SizedBox(height: 16.0),
             TextField(
+              controller: noPeopleController,
               decoration: InputDecoration(labelText: 'Number of People'),
               keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
             ),
             SizedBox(height: 16.0),
             Center(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  double billAmount = double.parse(billAmountController.text);
+                  int tipPresentage = int.parse(tipPrecentageController.text);
+                  int noPeople = int.parse(noPeopleController.text);
+                  print(billAmount);
+                  print(tipPresentage);
+                  print(noPeople);
+                },
                 child: Text(
                   'Calculate Tip',
                   style: TextStyle(
