@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tip_calculator/Controllers/tipCalculate_controller.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -61,12 +63,11 @@ class HomePage extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  double billAmount = double.parse(billAmountController.text);
-                  int tipPresentage = int.parse(tipPrecentageController.text);
-                  int noPeople = int.parse(noPeopleController.text);
-                  print(billAmount);
-                  print(tipPresentage);
-                  print(noPeople);
+                  TipCalculateControlller.tipProcess(
+                    billAmountController.text,
+                    tipPrecentageController.text,
+                    noPeopleController.text,
+                  );
                 },
                 child: Text(
                   'Calculate Tip',
@@ -83,24 +84,24 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Tip Amount:',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      'Total Amount:',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      'Total Per Person:',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
+                    Obx(() => Text(
+                          'Tip Amount:\$${TipCalculateControlller.tipAmount.value}',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        )),
+                    Obx(() => Text(
+                          'Total Amount:\$${TipCalculateControlller.totleAmount.value}',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        )),
+                    Obx(() => Text(
+                          'Total Per Person:\$${TipCalculateControlller.totlePerPerson.value}',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        )),
                   ],
                 ),
               ),
